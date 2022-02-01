@@ -40,14 +40,14 @@ CREATE TABLE `gym` (
 --
 
 INSERT INTO `gym` (`gym_id`, `gym_name`, `address`, `type`) VALUES
-('GYM1', 'GYM LAND', 'Shiv Nagar', 'men'),
-('GYM2', 'TARGET ZONE', 'Shanthi Nagar', 'unisex'),
-('GYM3', 'GEORGE GYM', 'Mahesh Nagar', 'unisex'),
-('GYM4', 'SUNNY GYM FITNESS STATION', 'Rupali Complex', 'women'),
-('GYM5', 'A3 FITNESS GYM', 'Ramnagar Colony', 'men'),
-('GYM6', 'SHAPE GYM', 'Zion Colony', 'unisex'),
-('GYM7', 'TITAN GYM', 'Old City', 'women'),
-('GYM8', 'TIGERS TOP GYM', 'Madival Circle', 'men');
+('GYM1', 'GOLD GYM', 'RR Nagar', 'Men'),
+('GYM2', 'TARGET ZONE FITNESS', 'ShivajiNagar', 'Unisex'),
+('GYM3', 'FITNESS PRO', 'Uttrahalli', 'Unisex'),
+('GYM4', 'SUNNY GYM FITNESS STATION', 'Jayanagar', 'Women'),
+('GYM5', 'CULT FIT', 'Ramnagar Colony', 'Men'),
+('GYM6', 'SHAPE PERFECT GYM', 'BHEL layout', 'Unisex'),
+('GYM7', 'REACH2FITNESS', 'Indiranagar', 'Women'),
+('GYM8', 'TIGERS TOP GYM', 'Koramagala', 'Men');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `uname`, `pwd`) VALUES
-(1, 'admin', 'admin');
+(1, 'admin', 'admin'),(2, 'nidhi', 'chickenmomos'),(1, 'kshitj', 'vegmomos');
 
 -- --------------------------------------------------------
 
@@ -90,11 +90,11 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`mem_id`, `name`, `dob`, `age`, `package`, `mobileno`, `pay_id`, `trainer_id`) VALUES
-('M1', 'Aditya', '18/08/1994', '26', '5200', '8888888888', 'Payment1', 'T1'),
-('M2', 'Karan', '26/06/1998', '21', '4800', '9988998899', 'Payment2', 'T2'),
-('M3', 'Chirag', '22/07/1997', '22', '6400', '9977997799', 'Payment3', 'T3'),
-('M4', 'Abhishek', '21/08/1998', '21', '5400', '9966996699', 'Payment4', 'T4'),
-('M5', 'Veeresh', '24/06/1999', '20', '6000', '9955995599', 'Payment5', 'T5');
+('M1', 'Nidhi', '15/10/2001', '20', '5200', '8888888888', 'Payment1', 'T1'),
+('M2', 'Kshitij', '13/03/2000', '21', '4800', '9988998899', 'Payment2', 'T2'),
+('M3', 'Amandeep', '20/04/2000', '22', '6400', '9977997799', 'Payment3', 'T3'),
+('M4', 'Hansika', '11/01/2001', '21', '5400', '9966996699', 'Payment4', 'T4'),
+('M5', 'Amulya', '09/09/2001', '20', '6000', '9955995599', 'Payment5', 'T5');
 
 -- --------------------------------------------------------
 
@@ -141,18 +141,27 @@ CREATE TABLE `trainer` (
 --
 
 INSERT INTO `trainer` (`trainer_id`, `name`, `time`, `mobileno`, `pay_id`) VALUES
-('T1', 'George', '5:00 AM', '9999999999', 'Payment1'),
-('T2', 'Tanveer', '9:00 AM', '8888888888', 'Payment2'),
-('T3', 'Wong Lee', '11:00 AM', '7777777777', 'Payment3'),
-('T4', 'Kiran Das', '1:00 PM', '6666666666', 'Payment6'),
-('T5', 'Harry Styles', '3:00 PM', '6655665566', 'Payment5'),
-('T6', 'James Corden', '5:00 PM', '6677667766', 'Payment6'),
-('T7', 'Jimmy Kimmel', '7:00 PM', '6688668866', 'Payment7'),
-('T8', 'Ray Berlin', '9:00 PM', '6699669966', 'Payment8');
+('T1', 'Chayadevi ML', '5:00 AM', '9999999999', 'Payment1'),
+('T2', 'Malini M. Patil', '9:00 AM', '8888888888', 'Payment2'),
+('T3', 'Sahana S', '11:00 AM', '7777777777', 'Payment3'),
+('T4', 'Dayanand D', '1:00 PM', '6666666666', 'Payment6'),
+('T5', 'Ashoka DV', '3:00 PM', '6655665566', 'Payment5'),
+('T6', 'Rekha PM', '5:00 PM', '6677667766', 'Payment6'),
+('T7', 'Nagashree', '7:00 PM', '6688668866', 'Payment7'),
+('T8', 'Nagamani', '9:00 PM', '6699669966', 'Payment8');
 
 --
--- Indexes for dumped tables
+-- Creating a Trigger
 --
+CREATE TRIGGER trig1
+     after update or insert on payment
+    for each row
+    BEGIN
+     /* creating a backup */
+     INSERT INTO payment_backup
+     VALUES(new.pay_id,new.amount,new.gym_id);
+  END;
+   /
 
 --
 -- Indexes for table `gym`
